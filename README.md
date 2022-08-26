@@ -21,7 +21,7 @@ This is a new updated server that emulates Vape's server based on Kangaroo's cra
 ### How to run it?
 
 #### Server-side
-- Get Python3
+- Get Python [3.9.0](https://www.python.org/downloads/release/python-390/)
 - Clone this git
 - Run `pip install -r requirements.txt` to install the requirements
 - Run `server.py`
