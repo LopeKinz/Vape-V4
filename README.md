@@ -15,7 +15,7 @@ This is a new updated server that emulates Vape's server based on Kangaroo's cra
 - Editing Profiles
 ### What doesn't work?
 - Lunar client
-> If u would like to make it look like u are on Lunar Client, I recommend u getting Lilith. Lilith has Lunar spoofer, so while u are on forge it will show u that u are on Lunar Client. `discord.gg/lilith`
+> If u would like to make it look like u are on Lunar Client, I recommend Lilith. Lilith has Lunar spoofer. `discord.gg/lilith`
 - Vanilla 
 > Mapping issue (I'm lazy to fix, since it works on forge)
 ### How to run it?
@@ -23,7 +23,7 @@ This is a new updated server that emulates Vape's server based on Kangaroo's cra
 #### Server-side
 - Get Python [3.9.0](https://www.python.org/downloads/release/python-390/)
 - Clone this git
-- Run `pip install -r requirements.txt` to install the requirements
+- Run `pip install -r requirements.txt --upgrade` to install the requirements
 - Run `server.py`
 - Open Vape folder
 - Drag Vape file over the Kangaroo Patcher
