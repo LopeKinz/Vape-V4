@@ -15,7 +15,7 @@ This is a new updated server that emulates Vape's server based on Kangaroo's cra
 - Editing Profiles
 ### What doesn't work?
 - Lunar client
-> If u would like to make it look like u are on Lunar Client, I recommend Lilith. Lilith has Lunar spoofer. `discord.gg/lilith`
+> If u would like to make it look like u are on Lunar Client, I recommend Lilith. Lilith has Lunar spoofer. https://lilith.rip/
 - Vanilla 
 > Mapping issue (I'm lazy to fix, since it works on forge)
 ### How to run it?
