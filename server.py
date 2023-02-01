@@ -683,6 +683,12 @@ async def handle_client(websocket, path):
                 print(e)
             break
 
+async def serve(handle_client, SERVER_IP, SERVER_PORT, ssl_context):
+    server = await websockets.serve(
+        handle_client, SERVER_IP, SERVER_PORT, ssl=ssl_context
+    )
+    await server.wait_closed()
+
 def main():
     loadAllMappings()
     FileIntegrityCheck()
@@ -698,16 +704,19 @@ def main():
     key_file = pathlib.Path(__file__).with_name(SSL_KEY_FILE)
     ssl_context.load_cert_chain(certfile=cert_file, keyfile=key_file)
 
-    start_server = websockets.serve(
-        handle_client, SERVER_IP, SERVER_PORT, ssl=ssl_context
-    )
     print("")
     print("┏━━━━━━━━━━━━━━━━━━━━━━━┓")
     print(f"┃    {SERVER_IP}:{SERVER_PORT}     ┃")
     print("┗━━━━━━━━━━━━━━━━━━━━━━━┛")
 
-    asyncio.get_event_loop().run_until_complete(start_server)
-    asyncio.get_event_loop().run_forever()
+    if sys.version_info >= (3, 7):
+        asyncio.run(serve(handle_client, SERVER_IP, SERVER_PORT, ssl_context))
+    else:
+        start_server = websockets.serve(
+            handle_client, SERVER_IP, SERVER_PORT, ssl=ssl_context
+        )
+        asyncio.get_event_loop().run_until_complete(start_server)
+        asyncio.get_event_loop().run_forever()
 
 if __name__ == "__main__":
     main()
