@@ -619,7 +619,7 @@ async def handle_client(websocket, path):
                 MACAddress = (await xor_string(recvdata[3].encode("ascii"), xor_key)).decode("ascii")
                 UNK1 = (await xor_string(recvdata[4].encode("ascii"), xor_key)).decode("ascii")
                 UNK2 = (await xor_string(recvdata[5].encode("ascii"), xor_key)).decode("ascii")
-                print(f"[ClientInfo V4] IGN: {IGN}\nPC Username: {PCUsername}\nMAC Address: {MACAddress}\nUNK1: {UNK1}\nUNK2: {UNK2}")
+                print(f"[ClientInfo V4] IGN: {IGN} | PC Username: {PCUsername} | MAC Address: {MACAddress} | UNK1: {UNK1} | UNK2: {UNK2}")
             #Hello2 (V4)
             elif packet_id == 4 and len(recvdata) >= 4:
                 if recvdata[1] != MAGIC_V4 or recvdata[3] != "V4":
