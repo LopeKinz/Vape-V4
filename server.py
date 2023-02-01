@@ -28,15 +28,8 @@ class bcolors:
 SERVER_IP = "localhost"
 SERVER_PORT = 8765
 print("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓")
-print("┃   Cracked by DuckySoLucky #Qwack   ┃")
+print("┃   Cracked by DuckySoLucky#5181     ┃")
 print("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")
-print("") 
-
-print(bcolors.OKGREEN + "Authorized" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.WARNING + socket.gethostname() + bcolors.ENDC)
-print(bcolors.WARNING + "Remote" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.OKGREEN + "Connected" + bcolors.ENDC)
-print(bcolors.HEADER + "Local" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.OKGREEN + "Connected" + bcolors.ENDC)
-print(bcolors.OKCYAN + "Forge" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.OKGREEN + "Connected" + bcolors.ENDC)
-print(bcolors.OKBLUE + "Lunar" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.FAIL + "Failed" + bcolors.ENDC)
 print("")
 ##Mapping stuff
 version_map={}
@@ -78,9 +71,9 @@ def loadAllMappings(path = "mappings"):
         version_map[version]["method"] = srg_method
         version_map[version]["field"] = srg_field
         if version=='1.8.9' or version=='1.7.10':
-            print(bcolors.OKCYAN + f"{version}" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.OKGREEN + "Connected" + bcolors.ENDC)
+            print(bcolors.OKCYAN + f"{version}" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.OKGREEN + "Connected")
         else:
-            print(bcolors.OKCYAN + "1.12.2" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.OKGREEN + "Connected" + bcolors.ENDC)
+            print(bcolors.OKCYAN + "1.12.2" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.OKGREEN + "Connected")
 
 def downloadMappings(path = "mappings"):
     global mapping_urls
@@ -408,10 +401,6 @@ def FileIntegrityCheck(assets_folder = "assets"):
     SingleFileIntegrity("Dump1", DUMP1_HASH)
     SingleFileIntegrity("Dump2", DUMP2_HASH)
     SingleFileIntegrity("strings.txt", STRINGS_HASH)
-    print("")
-    print(bcolors.WARNING + "Config" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.BOLD + "Fetching..." + bcolors.ENDC)
-    print(bcolors.WARNING + "Config" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.BOLD + "Fetched" + bcolors.ENDC)
-    print(bcolors.FAIL + "Startup Complete" + bcolors.ENDC)
 
 
 def GenerateSSL(cert_file = "cert.pem", key_file = "key.pem"):
@@ -420,7 +409,7 @@ def GenerateSSL(cert_file = "cert.pem", key_file = "key.pem"):
 
     cert = crypto.X509()
     cert.get_subject().C = "FR"
-    cert.get_subject().O = "Vape Offline Server by Andro24"
+    cert.get_subject().O = "Server by DuckySoLucky#5181 | Credits: Andro24 & Apfelsaft#0002"
     cert.get_subject().CN = "localhost"
     cert.set_serial_number(1337)
     cert.gmtime_adj_notBefore(0)
@@ -439,16 +428,20 @@ async def xor_string(text: bytes, key: int) -> bytes:
     return bytes([b ^ key for b in text])
 
 async def saveSettings(ip, settings, path):
+    print(bcolors.WARNING + "Settings" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.BOLD + "Saving settings..")
     makeDir(path)
     with open(path + "/" + HashString(ip) + ".json", "w") as f:
         f.write(settings)
+        print(bcolors.WARNING + "Settings" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.BOLD + "Successfully saved settings")
 
 async def loadSettings(ip, path):
+    print(bcolors.WARNING + "Settings" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.BOLD + "Fetching settings..")
     settings_file_path = path + "/" + HashString(ip) + ".json"
     if not os.path.exists(settings_file_path):
-        print(f"{ip} : No settings found for this ip.")
+        print(bcolors.WARNING + "Settings" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.BOLD + "Found no settings")
         return "{}"
     with open(settings_file_path, "r") as f:
+        print(bcolors.WARNING + "Settings" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.BOLD + "Fetched")
         return f.read()
 
 FILE_BUFFER_SIZE=1000
@@ -708,6 +701,16 @@ def main():
     print("┏━━━━━━━━━━━━━━━━━━━━━━━┓")
     print(f"┃    {SERVER_IP}:{SERVER_PORT}     ┃")
     print("┗━━━━━━━━━━━━━━━━━━━━━━━┛")
+    print("")
+    print(bcolors.FAIL + "Startup Complete" + bcolors.ENDC)
+    # print a message with same format as other messages which is gonna let user know that u can use only forge client and not clients like lunar or badlion
+    print("")
+    print(bcolors.FAIL + "NOTE".center(80) + bcolors.ENDC)
+    print("")
+    print(bcolors.OKBLUE + "You can only use forge client with this server".center(80) + bcolors.ENDC)
+    print(bcolors.OKBLUE + "Also you must not have any Sk1er mods (For example: Patcher) otherwise you're gonna crash".center(80) + bcolors.ENDC)
+    print(bcolors.OKBLUE + "You can't use Lunar, Badlion or any other custom client".center(80) + bcolors.ENDC)
+    print("")
 
     if sys.version_info >= (3, 7):
         asyncio.run(serve(handle_client, SERVER_IP, SERVER_PORT, ssl_context))
@@ -717,6 +720,7 @@ def main():
         )
         asyncio.get_event_loop().run_until_complete(start_server)
         asyncio.get_event_loop().run_forever()
+
 
 if __name__ == "__main__":
     main()
