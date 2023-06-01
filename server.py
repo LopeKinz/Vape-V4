@@ -66,11 +66,11 @@ def loadAllMappings(path = "mappings"):
     for version in mapping_urls:
         current_path = path + "/" + version + "/"
         srg_method, srg_field = loadMappings(path = current_path, version = version)
-        
+
         version_map[version] = {}
         version_map[version]["method"] = srg_method
         version_map[version]["field"] = srg_field
-        if version=='1.8.9' or version=='1.7.10':
+        if version in ['1.8.9', '1.7.10']:
             print(bcolors.OKCYAN + f"{version}" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.OKGREEN + "Connected")
         else:
             print(bcolors.OKCYAN + "1.12.2" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.OKGREEN + "Connected")
@@ -286,30 +286,30 @@ def loadMappings(fields_csv = "fields.csv", methods_csv = "methods.csv", joined_
     fields_map = None
     methods_map = None
     srg_method, srg_field = loadMappingCache(path = path)
-    
+
     load_methods=False
     load_fields=False
-    if srg_method == None or len(srg_method) == 0:
+    if srg_method is None or len(srg_method) == 0:
         print("Unable to load cached methods")
         load_methods = True
-        
-    if srg_field == None or len(srg_field) == 0:
+
+    if srg_field is None or len(srg_field) == 0:
         print("Unable to load cached fields")
         load_fields = True
-    
+
     if load_fields:
         fields_map = pd.read_csv(path + fields_csv) 
         print(f"Loaded {path + fields_csv}")
     if load_methods:
         methods_map = pd.read_csv(path + methods_csv)
         print(f"Loaded {path + methods_csv}")
-    
+
     if load_fields or load_methods:
         print("Parsing SRG ... (This can take some time. But don\'t worry this is done only once per version!)")
         srg_method, srg_field = parseSRG(path + joined_srg, fields_map, methods_map, load_fields, load_methods, version)
         print(f"Loaded {path + joined_srg}")
         saveMappingCache(srg_method, srg_field, path = path)
-    
+
     return srg_method, srg_field
 ##
 
@@ -425,7 +425,7 @@ def GenerateSSL(cert_file = "cert.pem", key_file = "key.pem"):
 
 ##The actual server starts here:
 async def xor_string(text: bytes, key: int) -> bytes:
-    return bytes([b ^ key for b in text])
+    return bytes(b ^ key for b in text)
 
 async def saveSettings(ip, settings, path):
     print(bcolors.WARNING + "Settings" + bcolors.ENDC + bcolors.UNDERLINE + " » " + bcolors.BOLD + "Saving settings.." + bcolors.ENDC)
@@ -453,13 +453,11 @@ async def send_file(websocket, file, xor_key):
         f.seek(0, os.SEEK_END)
         fileSize = f.tell()
         f.seek(0, os.SEEK_SET)
-        
+
         await websocket.send(str(fileSize))
-        
-        buffer = f.read(FILE_BUFFER_SIZE)
-        while buffer:
+
+        while buffer := f.read(FILE_BUFFER_SIZE):
             await websocket.send(await xor_string(buffer, xor_key))
-            buffer = f.read(FILE_BUFFER_SIZE)
         print(f"Sent {file} ({fileSize}) !")
 
 async def send_assets(websocket, xor_key, assets_folder = "assets"):
