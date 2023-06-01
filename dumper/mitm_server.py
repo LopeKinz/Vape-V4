@@ -22,7 +22,7 @@ async def writeLog(data):
 xor_key = 0
 async def xor_string(text: bytes) -> bytes:
     global xor_key
-    return bytes([b ^ xor_key for b in text])
+    return bytes(b ^ xor_key for b in text)
 
 nextFileSize = -1
 currentFileSize = 0
